@@ -1,8 +1,11 @@
-from flask import *
+import json
+
+from flask import Flask, request
+
 import Key
 
-
 app = Flask(__name__)
+
 messages = []
 
 
@@ -20,7 +23,7 @@ def get():
         if Key.key != requestKey:
             return 'No permission'
     else:
-        return jsonify(messages)
+        return json.dumps([m.__dict__ for m in messages])
 
 
 @app.route('/irc/send', methods=['PUT', 'GET'])
@@ -40,10 +43,7 @@ def put():
         if message == '' or username == '':
             return 'Invalid message!'
         messages.append(Message(message, username))
-
-
-if __name__ == '__main__':
-    app.run()
+        return 'Message: ' + message + ' Username: ' + username
 
 
 class Message:
@@ -53,3 +53,7 @@ class Message:
     def __init__(self, content, username):
         self.content = content
         self.username = username
+
+
+if __name__ == '__main__':
+    app.run()
