@@ -1,6 +1,6 @@
 package com.noxilon.irc.endpoints;
 
-import com.noxilon.irc.endpoints.Key.Key;
+import com.noxilon.irc.endpoints.key.Key;
 import com.noxilon.irc.objects.ListMessages;
 import com.noxilon.irc.objects.Message;
 import org.springframework.web.bind.annotation.RequestMapping;

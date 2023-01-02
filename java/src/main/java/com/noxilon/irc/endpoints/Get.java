@@ -1,7 +1,7 @@
 package com.noxilon.irc.endpoints;
 
 import com.google.gson.Gson;
-import com.noxilon.irc.endpoints.Key.Key;
+import com.noxilon.irc.endpoints.key.Key;
 import com.noxilon.irc.objects.ListMessages;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
