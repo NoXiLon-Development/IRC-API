@@ -19,9 +19,9 @@ def get():
     request_key = request.args.get('key', '')
     if Key.key != '':
         if request_key == '':
-            return 'No permission'
+            return 'No permission!'
         if Key.key != request_key:
-            return 'No permission'
+            return 'No permission!'
         if Key.key == request_key:
             return json.dumps([m.__dict__ for m in messages])
     else:
@@ -35,9 +35,9 @@ def put():
     username = request.args.get('username')
     if Key.key != '':
         if request_key == '':
-            return 'No permission'
+            return 'No permission!'
         if Key.key != request_key:
-            return 'No permission'
+            return 'No permission!'
         if Key.key == request_key:
             return get_message(message, username)
     else:
