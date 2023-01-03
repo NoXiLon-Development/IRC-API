@@ -16,42 +16,50 @@ def route():
 
 @app.route('/irc/get', methods=['GET'])
 def get():
-    requestKey = request.args.get('key', '')
+    request_key = request.args.get('key', '')
     if Key.key != '':
-        if requestKey == '':
+        if request_key == '':
             return 'No permission'
-        if Key.key != requestKey:
+        if Key.key != request_key:
             return 'No permission'
+        if Key.key == request_key:
+            return json.dumps([m.__dict__ for m in messages])
     else:
         return json.dumps([m.__dict__ for m in messages])
 
 
 @app.route('/irc/send', methods=['PUT', 'GET'])
 def put():
-    requestKey = request.args.get('key')
+    request_key = request.args.get('key')
     message = request.args.get('message')
     username = request.args.get('username')
     if Key.key != '':
-        if requestKey == '':
+        if request_key == '':
             return 'No permission'
-        if Key.key != requestKey:
+        if Key.key != request_key:
             return 'No permission'
+        if Key.key == request_key:
+            return get_message(message, username)
     else:
-        if len(message) > 40:
-            message = []
-            message.clear()
-        if message == '' or username == '':
-            return 'Invalid message!'
-        messages.append(Message(message, username))
-        return 'Message: ' + message + ' Username: ' + username
+        return get_message(message, username)
+
+
+def get_message(message, username):
+    if len(message) > 40:
+        message = []
+        message.clear()
+    if message == '' or username == '':
+        return 'Invalid message!'
+    messages.append(Message(message, username))
+    return 'Message: ' + message + ',' + ' Username: ' + username
 
 
 class Message:
-    content = ''
+    message = ''
     username = ''
 
-    def __init__(self, content, username):
-        self.content = content
+    def __init__(self, message, username):
+        self.message = message
         self.username = username
 
 
