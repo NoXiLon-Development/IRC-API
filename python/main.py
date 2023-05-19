@@ -1,11 +1,9 @@
 import json
-
 from flask import Flask, request
+from Key import key
 
-import Key
 
 app = Flask(__name__)
-
 messages = []
 
 
